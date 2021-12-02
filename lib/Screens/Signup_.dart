@@ -16,8 +16,8 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> {
   @override
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController _email, _password, _contact, _passportnumber;
-  String email, password, contact, passportnumber;
+  TextEditingController _email, _password, _contact, _passportnumber,_Name;
+  String email, password, contact, passportnumber,Name;
   DatabaseReference reference =
       FirebaseDatabase.instance.reference().child("UserTeacher");
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,6 +26,7 @@ class _SignupState extends State<Signup> {
     _password = new TextEditingController();
     _contact = new TextEditingController();
     _passportnumber = new TextEditingController();
+    _Name = new TextEditingController();
     super.initState();
   }
 
@@ -120,6 +121,27 @@ class _SignupState extends State<Signup> {
                                 ]),
                             child: Column(
                               children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: Colors.grey[100]))),
+                                  child: TextFormField(
+                                    validator: MultiValidator([
+                                      RequiredValidator(
+                                          errorText:
+                                              'Name is required'),
+
+                                    ]),
+                                    controller: _Name,
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: "Name",
+                                        hintStyle:
+                                            TextStyle(color: Colors.grey[400])),
+                                  ),
+                                ),
                                 Container(
                                   padding: EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
@@ -243,6 +265,7 @@ class _SignupState extends State<Signup> {
   }
 
   Future<void> signup() async {
+    Name = _Name.text;
     email = _email.text;
     password = _password.text;
     contact = _contact.text;
@@ -270,6 +293,7 @@ class _SignupState extends State<Signup> {
 
   void SaveData(String userid) {
     reference.child(userid).set({
+      "Name": Name,
       "email": email,
       "password": password,
       "contact": contact,
