@@ -973,7 +973,7 @@ class _MeetingState extends State<Meeting> {
 
                                 CheckboxListTile(
                                   contentPadding:
-                                  EdgeInsets.only(left: 15, right: 15),
+                                  EdgeInsets.only(left: 15, right: 16),
                                   title: Text("Audio Muted"),
                                   value: isAudioMuted,
                                   onChanged: _onAudioMutedChanged,
