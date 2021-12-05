@@ -6,6 +6,8 @@ List<MyCoursesModel> myCoursesList = new List<MyCoursesModel>();
 List<String> Student_CourceList = new List<String>();
 
 void Retrieve_MyCourtses() {
+  // myCoursesList.clear();
+  // Student_CourceList.clear();
   FirebaseAuth auth = FirebaseAuth.instance;
   DatabaseReference DB_Refrance = FirebaseDatabase.instance.reference().child(
       "courseSchedule").child(auth.currentUser.uid);

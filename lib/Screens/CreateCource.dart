@@ -7,9 +7,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:theguiderteacherrr/Model/Cource_Shedule_Model.dart';
+import 'package:theguiderteacherrr/global.dart';
 import 'package:theguiderteacherrr/widget/fadedanimation.dart';
 import 'package:theguiderteacherrr/Config.dart';
-import 'globals.dart' as globals;
 
 class Create_Cource extends StatefulWidget {
   //const Create_Cource({Key? key}) : super(key: key);
@@ -19,12 +19,7 @@ class Create_Cource extends StatefulWidget {
 }
 
 class _Create_CourceState extends State<Create_Cource> {
-  int hrs = 0;
-  int time = 0;
-  static const spinkit = SpinKitRotatingCircle(
-    color: Colors.black45,
-    size: 50.0,
-  );
+
   final dbREF = FirebaseDatabase.instance.reference();
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -315,175 +310,7 @@ class _Create_CourceState extends State<Create_Cource> {
                                         TextStyle(color: Colors.grey[400])),
                                   ),
                                 ),
-                                // Row(
-                                //   children: [
-                                //     Container(
-                                //       width: MediaQuery.of(context).size.width /
-                                //           2.7,
-                                //       child: DropdownButtonFormField<String>(
-                                //           icon: Icon(Icons.keyboard_arrow_down),
-                                //           iconSize: 17,
-                                //           elevation: 16,
-                                //           style: TextStyle(color: Colors.grey),
-                                //           decoration: InputDecoration(
-                                //             border: OutlineInputBorder(
-                                //               borderRadius:
-                                //                   const BorderRadius.all(
-                                //                 const Radius.circular(10.0),
-                                //               ),
-                                //             ),
-                                //             hintStyle: TextStyle(
-                                //                 color: Colors.grey[800]),
-                                //             hintText: "Select Class Hours",
-                                //           ),
-                                //           value: _Hours,
-                                //           items: <String>[
-                                //             'Select Hours',
-                                //             '01',
-                                //             '02',
-                                //             '03',
-                                //             '04',
-                                //             '05',
-                                //             '06',
-                                //             '07',
-                                //             '08',
-                                //             '09',
-                                //             '10',
-                                //             '11',
-                                //             '12',
-                                //             '13',
-                                //             '14',
-                                //             '15',
-                                //             '16',
-                                //             '17',
-                                //             '18',
-                                //             '19',
-                                //             '20',
-                                //             '21',
-                                //             '22',
-                                //             '23'
-                                //           ].map((String value) {
-                                //             return new DropdownMenuItem<String>(
-                                //               value: value,
-                                //               child: new Text(value),
-                                //             );
-                                //           }).toList(),
-                                //           onChanged: (newVal) {
-                                //             setState(() {
-                                //               _Hours = newVal;
-                                //             });
-                                //           }),
-                                //     ), //Hours
-                                //     SizedBox(
-                                //       width: 5,
-                                //     ),
-                                //     Container(
-                                //       width: MediaQuery.of(context).size.width /
-                                //           2.6,
-                                //       child: DropdownButtonFormField<String>(
-                                //           icon: Icon(Icons.keyboard_arrow_down),
-                                //           iconSize: 17,
-                                //           elevation: 16,
-                                //           style: TextStyle(color: Colors.grey),
-                                //           decoration: InputDecoration(
-                                //             border: OutlineInputBorder(
-                                //               borderRadius:
-                                //                   const BorderRadius.all(
-                                //                 const Radius.circular(10.0),
-                                //               ),
-                                //             ),
-                                //             hintStyle: TextStyle(
-                                //                 color: Colors.grey[800]),
-                                //             hintText: "Select Class Hours",
-                                //           ),
-                                //           value: _Min,
-                                //           items: <String>[
-                                //             'Select Minutes',
-                                //             '00',
-                                //             '01',
-                                //             '02',
-                                //             '03',
-                                //             '04',
-                                //             '05',
-                                //             '06',
-                                //             '07',
-                                //             '08',
-                                //             '09',
-                                //             '10',
-                                //             '11',
-                                //             '12',
-                                //             '13',
-                                //             '14',
-                                //             '15',
-                                //             '16',
-                                //             '17',
-                                //             '18',
-                                //             '19',
-                                //             '20',
-                                //             '21',
-                                //             '22',
-                                //             '23',
-                                //             '24',
-                                //             '25',
-                                //             '26',
-                                //             '27',
-                                //             '28',
-                                //             '29',
-                                //             '30',
-                                //             '31',
-                                //             '32',
-                                //             '33',
-                                //             '34',
-                                //             '35',
-                                //             '36',
-                                //             '37',
-                                //             '38',
-                                //             '39',
-                                //             '40',
-                                //             '41',
-                                //             '42',
-                                //             '43',
-                                //             '44',
-                                //             '45',
-                                //             '46',
-                                //             '47',
-                                //             '48',
-                                //             '49',
-                                //             '50',
-                                //             '51',
-                                //             '52',
-                                //             '53',
-                                //             '54',
-                                //             '55',
-                                //             '56',
-                                //             '57',
-                                //             '58',
-                                //             '59',
-                                //           ].map((String value) {
-                                //             return new DropdownMenuItem<String>(
-                                //               value: value,
-                                //               child: new Text(value),
-                                //             );
-                                //           }).toList(),
-                                //           onChanged: (newVal) {
-                                //             setState(() {
-                                //               _Min = newVal;
-                                //             });
-                                //           }),
-                                //     ),
-                                //     //Minutes
-                                //   ],
-                                // ),
-                                // Padding(
-                                //   padding: const EdgeInsets.all(8.0),
-                                //   child: Text(
-                                //     "Class Start Timing " +
-                                //         _Hours +
-                                //         ' : ' +
-                                //         _Min,
-                                //     style: TextStyle(color: Colors.grey[400]),
-                                //   ),
-                                // ),
+
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
@@ -524,16 +351,7 @@ class _Create_CourceState extends State<Create_Cource> {
                                         }),
                                   ),
                                 ),
-                                // Padding(
-                                //   padding: const EdgeInsets.all(8.0),
-                                //   child: Text(
-                                //     "Class Total Duration " +
-                                //         '00' +
-                                //         ' : ' +
-                                //         _course_duration,
-                                //     style: TextStyle(color: Colors.grey[400]),
-                                //   ),
-                                // ),
+
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: DropdownButtonFormField<String>(
@@ -621,6 +439,8 @@ class _Create_CourceState extends State<Create_Cource> {
                                   ),
                                 );
                                 Retrive_all_teachers_Classes();
+                                // myCoursesList.clear();
+                                // Student_CourceList.clear();
                                 // Navigator.pop(context);
                               }
                             },

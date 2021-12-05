@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -55,7 +57,6 @@ class _LoginState extends State<Login> {
   void initState() {
     _email = new TextEditingController();
     _password = new TextEditingController();
-    Retrieve_MyCourtses();
 
     super.initState();
   }
@@ -210,8 +211,10 @@ class _LoginState extends State<Login> {
                                     content: Text('Processing Data'),
                                   ),
                                 );
-
-                                login();
+                                Retrieve_MyCourtses();
+                                Future.delayed(Duration(seconds: 8), () {
+                                  login();
+                                });
                               }
                             },
                             child: Container(

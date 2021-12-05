@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:theguiderteacherrr/Model/Online_Madarsa_List.dart';
+import 'package:theguiderteacherrr/global.dart';
 
 class HomeScreen extends StatefulWidget {
  // const OnlineMadarsa({Key key}) : super(key: key);
@@ -9,6 +10,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void initState() {
+
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

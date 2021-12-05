@@ -686,6 +686,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
+import 'package:theguiderteacherrr/Screens/LoadingPage.dart';
+import 'package:theguiderteacherrr/Screens/Login_.dart';
 import 'package:theguiderteacherrr/global.dart';
 import 'package:theguiderteacherrr/widget/fadedanimation.dart';
 
@@ -838,12 +840,25 @@ class _MeetingState extends State<Meeting> {
                       Container(
                         margin: EdgeInsets.only(top: 20),
                         child: Center(
-                          child: Text(
-                            "My Cources",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold),
+                          child: Row(
+                            children: [
+                              InkWell(
+                                  onTap: (){
+                                    myCoursesList.clear();
+                                    Student_CourceList.clear();
+                                    Navigator.push(
+                                        context, MaterialPageRoute(builder: (context) => Loader()));
+                                  },
+                                  child: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,)),
+                              SizedBox(width: 5,),
+                              Text(
+                                "My Cources",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
                         ),
                       )),
