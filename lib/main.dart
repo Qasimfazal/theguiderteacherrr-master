@@ -1,7 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:theguiderteacherrr/Screens/CreateCource.dart';
-import 'package:theguiderteacherrr/Screens/Meeting.dart';
 import 'package:theguiderteacherrr/Screens/Splash.dart';
 
 void main() async {

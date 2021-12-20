@@ -11,7 +11,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   void initState() {
-
+    myCoursesList.clear();
+    Retrieve_MyCourtses();
 
     super.initState();
   }
@@ -80,6 +81,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-
   }
 }

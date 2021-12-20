@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:theguiderteacherrr/Screens/Login_.dart';
-import 'package:theguiderteacherrr/global.dart';
+import 'package:intl/intl.dart';
 
 class Splashscreen extends StatefulWidget {
   @override
@@ -29,7 +29,13 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
     initi();
-    Retrieve_MyCourtses();
+
+    DateTime now = DateTime.now();
+    String day = DateFormat('EEEE \n').format(now);
+    String time = DateFormat('kk:mm').format(now);
+    print(day);
+    print(time);
+
     super.initState();
   }
 

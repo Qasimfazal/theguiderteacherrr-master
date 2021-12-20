@@ -16,7 +16,7 @@ class _LoaderState extends State<Loader> {
   @override
   navigate() async {
     await Future.delayed(const Duration(seconds: 1), () {
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).push(
           MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
     });
   }
@@ -31,6 +31,7 @@ class _LoaderState extends State<Loader> {
   }
 
   void initState() {
+    myCoursesList.clear();
     Retrieve_MyCourtses();
     initi();
 
