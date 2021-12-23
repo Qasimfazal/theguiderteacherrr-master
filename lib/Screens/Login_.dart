@@ -19,7 +19,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   String email, password;
   TextEditingController _email, _password;
-
+  bool _loading = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   login() async {
@@ -55,10 +55,14 @@ class _LoginState extends State<Login> {
 
   @override
   void initState() {
+    super.initState();
     _email = new TextEditingController();
     _password = new TextEditingController();
-
-    super.initState();
+    Future.delayed(Duration(seconds: 3), () {
+      setState(() {
+        _loading = false;
+      });
+    });
   }
 
   Widget build(BuildContext context) {
@@ -211,10 +215,8 @@ class _LoginState extends State<Login> {
                                     content: Text('Processing Data'),
                                   ),
                                 );
-                              //  Retrieve_MyCourtses();
-                                Future.delayed(Duration(seconds: 8), () {
-                                  login();
-                                });
+
+                                login();
                               }
                             },
                             child: Container(
@@ -234,8 +236,7 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                             ),
-                          )
-                      ),
+                          )),
                       SizedBox(
                         height: 70,
                       ),

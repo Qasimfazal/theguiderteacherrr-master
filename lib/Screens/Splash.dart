@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:theguiderteacherrr/Screens/Login_.dart';
 import 'package:intl/intl.dart';
+import 'package:theguiderteacherrr/widget/Toast.dart';
 
 class Splashscreen extends StatefulWidget {
+
   @override
   _SplashscreenState createState() => _SplashscreenState();
 }
@@ -25,7 +27,7 @@ class _SplashscreenState extends State<Splashscreen> {
       },
     );
   }
-
+String msg;
   @override
   void initState() {
     initi();

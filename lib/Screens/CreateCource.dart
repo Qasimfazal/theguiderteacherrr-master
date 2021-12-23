@@ -207,7 +207,7 @@ class _Create_CourceState extends State<Create_Cource> {
             child: Column(
               children: <Widget>[
                 Container(
-                  height: 400,
+                  height: 240,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('assets/background.png'),
@@ -439,9 +439,7 @@ class _Create_CourceState extends State<Create_Cource> {
                                   ),
                                 );
                                 Retrive_all_teachers_Classes();
-                                // myCoursesList.clear();
-                                // Student_CourceList.clear();
-                                // Navigator.pop(context);
+
                               }
                             },
                             child: Container(
