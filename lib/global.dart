@@ -215,7 +215,7 @@ class Data {
           builder: (BuildContext context) => StudentInCourse()));
     } else {
       Fluttertoast.showToast(
-          msg: 'No Student in this course',
+          msg: 'No Student in this cours',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
