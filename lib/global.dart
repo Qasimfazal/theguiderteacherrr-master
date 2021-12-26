@@ -211,7 +211,7 @@ class Data {
       }*/
     if (studentInClassModelList.isNotEmpty) {
 
-      Navigator.of(context).push(MaterialPageRoute(
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (BuildContext context) => StudentInCourse()));
     } else {
       Fluttertoast.showToast(
