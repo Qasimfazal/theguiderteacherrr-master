@@ -14,17 +14,31 @@ class _StudentInCourseState extends State<StudentInCourse> {
   bool _isButtonDisabled;
   static bool _isAttendanceNotMarked = true;
   int _counter = 0;
+  bool _isCheck =false;
 
+  CheckUpdate(){
+    _isCheck = false;
+    setState(() {
+
+    });
+  }
   @override
+
   void initState() {
     _isButtonDisabled = false;
+    _isCheck = true;
     Data.Retrieve_MyCourtses();
     //  TODO: implement initState
+    setState(() {
+
+
+    });
   }
 
   void _incrementCounter() {
     setState(() {
       _isButtonDisabled = true;
+
     });
   }
 
@@ -155,19 +169,23 @@ class _StudentInCourseState extends State<StudentInCourse> {
                             ],
                           ),
                           Spacer(),
-                          Row(
+
+                          studentInClassModelList[index].check     ==true?Row(
                             children: [
                               Spacer(),
                               Container(
                                 height: 30,
-                                child: FloatingActionButton.extended(
-                                  backgroundColor: Colors.green,
+                                child: RaisedButton(
+                                  child:  Text("Present"),
+                              //    backgroundColor: Colors.green,
                                   onPressed: () {
+                                    // CheckUpdate();
+                                    studentInClassModelList[index].check=false;
                                     setState(() {
                                       present(index);
                                     });
                                   },
-                                  label: Text("Present"),
+
                                 ),
                               ),
                               SizedBox(
@@ -175,18 +193,21 @@ class _StudentInCourseState extends State<StudentInCourse> {
                               ),
                               Container(
                                 height: 30,
-                                child: FloatingActionButton.extended(
-                                  backgroundColor: Colors.red,
+                                child: RaisedButton(
+                                 // backgroundColor: Colors.red,
+                                  child:  Text("Absent"),
                                   onPressed: () {
+                                    // CheckUpdate();
+                                    studentInClassModelList[index].check=false;
                                     setState(() {
                                       absent(index);
                                     });
                                   },
-                                  label: Text("Absent"),
+                                  //label: Text("Absent"),
                                 ),
                               ),
                             ],
-                          ),
+                          ):Container(),
                         ],
                       ),
                     ),

@@ -18,8 +18,7 @@ class _SignupState extends State<Signup> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _email, _password, _contact, _passportnumber,_Name;
   String email, password, contact, passportnumber,Name;
-  DatabaseReference reference =
-      FirebaseDatabase.instance.reference().child("UserTeacher");
+  DatabaseReference reference = FirebaseDatabase.instance.reference().child("UserTeacher");
   final FirebaseAuth _auth = FirebaseAuth.instance;
   void initState() {
     _email = new TextEditingController();

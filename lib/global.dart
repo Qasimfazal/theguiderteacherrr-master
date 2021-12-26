@@ -20,6 +20,7 @@ List<MyCoursesModel> myCoursesList = [];
 List<String> Student_CourceList = [];
 List<String> studentSidList = [];
 List<String> studentcourseList = [];
+List<StudentInClassModel> studentInClassModelList1 = [];
 List<StudentInClassModel> studentInClassModelList = [];
 String Student_Name;
 
@@ -82,6 +83,7 @@ class Data {
     studentcourseList.clear();
     studentSidList.clear();
     studentInClassModelList.clear();
+    studentInClassModelList1.clear();
     DatabaseReference reff =
         await FirebaseDatabase.instance.reference().child("StudentCourse");
     reff.once().then((DataSnapshot snapshot) {
@@ -91,12 +93,11 @@ class Data {
         studentSidList.add(element);
       });
     }).then((value) async {
-      await retrieveCoursesDetails(cid, context);
+      await retrieveStudentInCourses(cid, context);
     });
   }
 
-  static Future<void> retrieveCoursesDetails(
-      String cid, BuildContext context) async {
+  static Future<void> retrieveCoursesDetails(String cid, BuildContext context) async {
     for (int i = 0; i < studentSidList.length; i++) {
       DatabaseReference datareff = await FirebaseDatabase.instance
           .reference()
@@ -116,9 +117,10 @@ class Data {
     }
   }
 
-  static Future<void> StudentInRespectiveClass(
-      String cid, BuildContext context) async {
+  static Future<void> StudentInRespectiveClass(String cid, BuildContext context) async {
+
     for (int res = 0; res < studentSidList.length; res++) {
+
       for (int i = 0; i < studentcourseList.length; i++) {
         DatabaseReference reference = await FirebaseDatabase.instance
             .reference()
@@ -138,14 +140,25 @@ class Data {
             String _roomId = snapshot.value["RoomID"];
 
             StudentInClassModel sicm = new StudentInClassModel(_sid, _sname,
-                _absent, _day, _slottime, _cid, _tid, _present, _roomId);
-            studentInClassModelList.add(sicm);
+
+                _absent,true, _day, _slottime, _cid, _tid, _present, _roomId);
+
+              studentInClassModelList.add(sicm);
+
           }
-        }).then((value) async {
-          await NavigateToScreen(context);
         });
+        /*then((value) async {
+          await NavigateToScreen(context);
+        });*/
       }
+
     }
+    Future.delayed(Duration(seconds: 35), () {
+
+        NavigateToScreen(context);
+
+    });
+
   }
 
   static void MoveTowardsAttendance() {
@@ -154,13 +167,21 @@ class Data {
     String time = DateFormat('kk:mm').format(now);
     for (int i = 0; i < studentInClassModelList.length; i++) {
       if (studentInClassModelList[i].day == day) {
-        //  if(studentInClassModelList.elementAt(i).slottime == time){
         S_sid = studentInClassModelList.elementAt(i).studentid;
         String _cid = studentInClassModelList.elementAt(i).cid;
         String _rid = studentInClassModelList.elementAt(i).roomid;
 
         MarkAttendance("RoomAttendance", _rid, S_sid, _cid, i);
         //   }
+      }else{
+        Fluttertoast.showToast(
+            msg: 'Attendance Will be Mark on Class Day',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     }
   }
@@ -184,6 +205,10 @@ class Data {
   }
 
   static NavigateToScreen(BuildContext context) {
+    /*if(!studentInClassModelList.contains(studentInClassModelList1))
+      {
+        studentInClassModelList = studentInClassModelList1;
+      }*/
     if (studentInClassModelList.isNotEmpty) {
 
       Navigator.of(context).push(MaterialPageRoute(
@@ -223,5 +248,30 @@ class Data {
           textColor: Colors.white,
           fontSize: 16.0);
     });
+  }
+
+  static retrieveStudentInCourses(String cid, BuildContext context) async {
+    for(int i =0 ; i<studentSidList.length ; i++) {
+      DatabaseReference reference = await FirebaseDatabase.instance.reference().child("StudentCourse").child(studentSidList.elementAt(i)).child(cid);
+      reference.once().then((DataSnapshot snapshot) {
+        String _cid = snapshot.key;
+        String _sid = studentSidList.elementAt(i);
+        String _absent = snapshot.value['Absents'];
+        String _day = snapshot.value["Day"];
+        String _slottime = snapshot.value["SlotTime"];
+        String _tid = snapshot.value["Teacher_Uid"];
+        String _present = snapshot.value["Present"];
+        String _sname = snapshot.value["Name"];
+        String _roomId = snapshot.value["RoomID"];
+
+        StudentInClassModel sicm = new StudentInClassModel(_sid, _sname,
+
+            _absent,true, _day, _slottime, _cid, _tid, _present, _roomId);
+
+        studentInClassModelList.add(sicm);
+        NavigateToScreen(context);
+      });
+
+    }
   }
 }

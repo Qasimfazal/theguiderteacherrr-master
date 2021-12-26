@@ -74,68 +74,13 @@ class _LoginState extends State<Login> {
             child: Column(
               children: <Widget>[
                 Container(
-                  height: 400,
+                  height: 300,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/istambol.png'),
-                          fit: BoxFit.fill)),
-                  // child: Stack(
-                  //   children: <Widget>[
-                  //     Positioned(
-                  //       left: 30,
-                  //       width: 80,
-                  //       height: 200,
-                  //       child: FadeAnimation(
-                  //           1,
-                  //           Container(
-                  //             decoration: BoxDecoration(
-                  //                 image: DecorationImage(
-                  //                     image: AssetImage('assets/light-1.png'))),
-                  //           )),
-                  //     ),
-                  //     Positioned(
-                  //       left: 140,
-                  //       width: 80,
-                  //       height: 150,
-                  //       child: FadeAnimation(
-                  //           1.3,
-                  //           Container(
-                  //             decoration: BoxDecoration(
-                  //                 image: DecorationImage(
-                  //                     image: AssetImage('assets/light-2.png'))),
-                  //           )),
-                  //     ),
-                  //     Positioned(
-                  //       right: 40,
-                  //       top: 40,
-                  //       width: 80,
-                  //       height: 150,
-                  //       child: FadeAnimation(
-                  //           1.5,
-                  //           Container(
-                  //             decoration: BoxDecoration(
-                  //                 image: DecorationImage(
-                  //                     image: AssetImage('assets/clock.png'))),
-                  //           )),
-                  //     ),
-                  //     Positioned(
-                  //       child: FadeAnimation(
-                  //           1.6,
-                  //           Container(
-                  //             margin: EdgeInsets.only(top: 50),
-                  //             child: Center(
-                  //               child: Text(
-                  //                 "Login",
-                  //                 style: TextStyle(
-                  //                     color: Colors.white,
-                  //                     fontSize: 40,
-                  //                     fontWeight: FontWeight.bold),
-                  //               ),
-                  //             ),
-                  //           )),
-                  //     )
-                  //   ],
-                  // ),
+                          image: AssetImage(
+                            'assets/logo5copy.png',
+                          ),
+                          fit: BoxFit.fitWidth)),
                 ),
                 Padding(
                   padding: EdgeInsets.all(30.0),
@@ -192,6 +137,7 @@ class _LoginState extends State<Login> {
                                               'passwords must have at least one special character')
                                     ]),
                                     controller: _password,
+                                    obscureText: true,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
                                         hintText: "Password",

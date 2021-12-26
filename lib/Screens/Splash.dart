@@ -1,9 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:theguiderteacherrr/Data/attendance.dart';
 import 'package:theguiderteacherrr/Screens/Login_.dart';
 import 'package:intl/intl.dart';
 import 'package:theguiderteacherrr/widget/Toast.dart';
+
+import '../global.dart';
 
 class Splashscreen extends StatefulWidget {
 
@@ -21,7 +24,7 @@ class _SplashscreenState extends State<Splashscreen> {
 
   initi() async {
     Timer(
-      Duration(seconds: 3),
+      Duration(seconds: 2),
       () {
         navigate();
       },
@@ -31,12 +34,6 @@ String msg;
   @override
   void initState() {
     initi();
-
-    DateTime now = DateTime.now();
-    String day = DateFormat('EEEE \n').format(now);
-    String time = DateFormat('kk:mm').format(now);
-    print(day);
-    print(time);
 
     super.initState();
   }
@@ -55,7 +52,7 @@ String msg;
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/Alqurankareem.jpeg'),
+                  Image.asset('assets/logo8.jpeg'),
                 ],
               ),
             ),

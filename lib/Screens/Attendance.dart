@@ -17,7 +17,7 @@ class _AttendanceState extends State<Attendance> {
     super.initState();
 
    Data.Retrieve_MyCourtses();
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(seconds: 10), () {
       setState(() {
         _loading = false;
       });
@@ -77,6 +77,8 @@ class _AttendanceState extends State<Attendance> {
                         content: Text('Processing Data'),
                       ),
                     );
+                    studentInClassModelList.clear();
+                    studentSidList.clear();
                    Data.retrieveStudent(myCoursesList[index].cid, ctx);
 
                   },

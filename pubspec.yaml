@@ -44,6 +44,8 @@ dependencies:
   flutter_spinkit: ^5.1.0
   loading_indicator: ^3.0.2
   custom_check_box: ^0.0.4
+  observable: ^0.24.0
+  get: ^4.6.1
 
 
 dev_dependencies:
