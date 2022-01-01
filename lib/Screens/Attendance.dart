@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:theguiderteacherrr/global.dart';
+import 'package:theguiderteacherrr/widget/Appbar.dart';
 
 class Attendance extends StatefulWidget {
   const Attendance({Key key}) : super(key: key);
@@ -46,10 +47,13 @@ class _AttendanceState extends State<Attendance> {
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height / 1.1,
-                      width: MediaQuery.of(context).size.width,
-                      child: ListDesign(),
+                    GradientAppBar("Courses"),
+                    Expanded(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 1.1,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListDesign(),
+                      ),
                     ),
                   ],
                 ),

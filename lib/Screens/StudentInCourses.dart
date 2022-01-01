@@ -2,6 +2,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:theguiderteacherrr/widget/Appbar.dart';
 
 import '../global.dart';
 
@@ -50,29 +51,32 @@ class _StudentInCourseState extends State<StudentInCourse> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
+
             children: [
+              GradientAppBar("Mark Attendance",),
               Container(
-                height: MediaQuery.of(context).size.height / 1.2,
-                width: MediaQuery.of(context).size.width,
-                child: ListDesign(),
+                child: Expanded(child: ListDesign()),
               ),
-              InkWell(
-                onTap: () {
-                  Data.MoveTowardsAttendance();
-                },
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(colors: [
-                        Color.fromRGBO(143, 148, 251, 1),
-                        Color.fromRGBO(143, 148, 251, .6),
-                      ])),
-                  child: Center(
-                    child: Text(
-                      "Mark Attendance",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: InkWell(
+                  onTap: () {
+                    Data.MoveTowardsAttendance();
+                  },
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(colors: [
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromRGBO(143, 148, 251, .6),
+                        ])),
+                    child: Center(
+                      child: Text(
+                        "Mark Attendance",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),
@@ -88,7 +92,7 @@ class _StudentInCourseState extends State<StudentInCourse> {
     bool ppresent = false;
     bool _isButtonDisabled;
     return ListView.builder(
-      padding: EdgeInsets.all(5),
+      //padding: EdgeInsets.all(4),
       itemCount: studentInClassModelList.length,
       itemBuilder: (BuildContext ctx, index) {
         return Padding(

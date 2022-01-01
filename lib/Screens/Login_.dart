@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:theguiderteacherrr/Screens/HomeScreen.dart';
 import 'package:theguiderteacherrr/Screens/Signup_.dart';
@@ -31,7 +32,7 @@ class _LoginState extends State<Login> {
         String val = value.user.uid;
         if (val.isNotEmpty) {
           print('chal raha h');
-          Navigator.push(
+          Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => HomeScreen()));
         } else {
           print('nahi araha');
@@ -56,7 +57,12 @@ class _LoginState extends State<Login> {
       });
     });
   }
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  Future<void> _signOut() async {
+    await _auth.signOut();
+    SystemNavigator.pop();
+  }
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -65,19 +71,94 @@ class _LoginState extends State<Login> {
           child: Container(
             child: Column(
               children: <Widget>[
+                // Container(
+                //   height: 300,
+                //   decoration: BoxDecoration(
+                //       image: DecorationImage(
+                //           image: AssetImage(
+                //             'assets/logo5copy.png',
+                //           ),
+                //           fit: BoxFit.fitWidth)),
+                // ),
                 Container(
-                  height: 300,
+                  height: 200,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage(
-                            'assets/logo5copy.png',
-                          ),
-                          fit: BoxFit.fitWidth)),
+                          image: AssetImage('assets/background.png'),
+                          fit: BoxFit.fill)),
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned(
+                          left: 30,
+                          width: 80,
+                          height: 200,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/light-1.png'))),
+                          )),
+                      Positioned(
+                        left: 140,
+                        width: 80,
+                        height: 150,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/light-2.png'))),
+                        ),
+                      ),
+                      Positioned(
+                        right: 40,
+                        top: 40,
+                        width: 80,
+                        height: 150,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/clock.png'))),
+                        ),
+                      ),
+                      Positioned(
+                          top: 30,
+                          left: 30,
+                          child: Container(
+                            margin: EdgeInsets.only(top: 20),
+                            child: Center(
+                              child: Row(
+                                children: [
+                                  InkWell(
+                                      onTap: () {
+                                        _signOut();
+                                      },
+                                      child: Icon(
+                                        Icons.power_settings_new,
+                                        color: Colors.white,
+                                      )),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  // Text(
+                                  //   "Teacher Portal",
+                                  //   style: TextStyle(
+                                  //       color: Colors.white,
+                                  //       fontSize: 22,
+                                  //       fontWeight: FontWeight.bold),
+                                  // ),
+                                ],
+                              ),
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(30.0),
                   child: Column(
                     children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Text('Teacher Portal',style: TextStyle(fontSize: 28,fontWeight: FontWeight.w300),),
+                      ),
                       FadeAnimation(
                           1.8,
                           Container(

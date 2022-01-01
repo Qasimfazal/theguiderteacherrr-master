@@ -204,7 +204,7 @@ class _Create_CourceState extends State<Create_Cource> {
             child: Column(
               children: <Widget>[
                 Container(
-                  height: 240,
+                  height: 200,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('assets/background.png'),
@@ -212,60 +212,65 @@ class _Create_CourceState extends State<Create_Cource> {
                   child: Stack(
                     children: <Widget>[
                       Positioned(
-                        left: 30,
-                        width: 80,
-                        height: 200,
-                        child: FadeAnimation(
-                            1,
-                            Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage('assets/light-1.png'))),
-                            )),
-                      ),
+                          left: 30,
+                          width: 80,
+                          height: 200,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/light-1.png'))),
+                          )),
                       Positioned(
                         left: 140,
                         width: 80,
                         height: 150,
-                        child: FadeAnimation(
-                            1.3,
-                            Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage('assets/light-2.png'))),
-                            )),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/light-2.png'))),
+                        ),
                       ),
                       Positioned(
                         right: 40,
                         top: 40,
                         width: 80,
                         height: 150,
-                        child: FadeAnimation(
-                            1.5,
-                            Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage('assets/clock.png'))),
-                            )),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/clock.png'))),
+                        ),
                       ),
                       Positioned(
-                        child: FadeAnimation(
-                            1.6,
-                            Container(
-                              margin: EdgeInsets.only(top: 50),
-                              child: Center(
-                                child: Text(
-                                  "Create \nCource",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 40,
-                                      fontWeight: FontWeight.bold),
-                                ),
+                          top: 30,
+                          left: 30,
+                          child: Container(
+                            margin: EdgeInsets.only(top: 20),
+                            child: Center(
+                              child: Row(
+                                children: [
+                                  InkWell(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Icon(
+                                        Icons.arrow_back_ios_sharp,
+                                        color: Colors.white,
+                                      )),
+                                  SizedBox(
+                                    width: 25,
+                                  ),
+                                  //   Text('Teacher Portal',style: TextStyle(color: Colors.white,fontSize: 28,fontWeight: FontWeight.w300),)
+                                ],
                               ),
-                            )),
-                      )
+                            ),
+                          )),
                     ],
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(0.0),
+                  child: Text('Create Course',style: TextStyle(color: Colors.black,fontSize: 28,fontWeight: FontWeight.w300),),
                 ),
                 Padding(
                   padding: EdgeInsets.all(30.0),
