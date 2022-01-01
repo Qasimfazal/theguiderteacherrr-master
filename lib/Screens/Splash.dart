@@ -1,10 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:theguiderteacherrr/Data/attendance.dart';
 import 'package:theguiderteacherrr/Screens/Login_.dart';
-import 'package:intl/intl.dart';
-import 'package:theguiderteacherrr/widget/Toast.dart';
 
 import '../global.dart';
 

@@ -205,10 +205,6 @@ class Data {
   }
 
   static NavigateToScreen(BuildContext context) {
-    /*if(!studentInClassModelList.contains(studentInClassModelList1))
-      {
-        studentInClassModelList = studentInClassModelList1;
-      }*/
     if (studentInClassModelList.isNotEmpty) {
 
       Navigator.of(context).pushReplacement(MaterialPageRoute(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:theguiderteacherrr/Data/attendance.dart';
 import 'package:theguiderteacherrr/Model/Online_Madarsa_List.dart';
-import 'package:theguiderteacherrr/global.dart';
 import 'package:theguiderteacherrr/widget/Appbar.dart';
 
 class HomeScreen extends StatefulWidget {

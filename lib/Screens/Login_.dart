@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:theguiderteacherrr/Screens/CreateCource.dart';
 import 'package:theguiderteacherrr/Screens/HomeScreen.dart';
 import 'package:theguiderteacherrr/Screens/Signup_.dart';
-import 'package:theguiderteacherrr/global.dart';
 import 'package:theguiderteacherrr/widget/fadedanimation.dart';
 
 class Login extends StatefulWidget {
@@ -37,18 +35,12 @@ class _LoginState extends State<Login> {
               context, MaterialPageRoute(builder: (context) => HomeScreen()));
         } else {
           print('nahi araha');
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text('Something went wrongs')));
-          //
         }
       });
     } catch (e) {
       print('kkkkkkkk');
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Something went wrongs')));
-      // final snackBar = SnackBar(content: Text(e.toString()));
-      //
-      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
     }
   }

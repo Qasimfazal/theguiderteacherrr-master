@@ -1,7 +1,7 @@
-import 'package:custom_check_box/custom_check_box.dart';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:theguiderteacherrr/widget/fadedanimation.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../global.dart';
 
@@ -97,7 +97,15 @@ class _StudentInCourseState extends State<StudentInCourse> {
             child: Column(
               children: [
                 InkWell(
-                  onTap: () {},
+                  onLongPress: () async {
+                    String sid = studentInClassModelList[index].studentid;
+                    String cid = studentInClassModelList[index].cid;
+                    String absents = studentInClassModelList[index].absent;
+                    String roomid = studentInClassModelList[index].roomid;
+                    if(absents == 3) {
+                      await RemoveStudent(sid, cid, absents, roomid);
+                    }
+                  },
                   child: Container(
                     height: 120,
                     width: MediaQuery.of(context).size.width,
@@ -235,5 +243,23 @@ class _StudentInCourseState extends State<StudentInCourse> {
     int _pre = pre + 1;
 
     studentInClassModelList[index].present = _pre.toString();
+  }
+
+  RemoveStudent(String sid, String cid, String absents , String roomid) {
+    DatabaseReference reffer = FirebaseDatabase.instance.reference().child("StudentCourse").child(sid).child(cid);
+    reffer.remove().then((value) async {
+      DatabaseReference reference = await FirebaseDatabase.instance.reference().child("RoomAttendance").child(roomid).child(cid);
+      reference.remove().then((value) async {
+        Fluttertoast.showToast(
+            msg: 'Student remove',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        await Navigator.pop(context);
+      });
+    });
   }
 }

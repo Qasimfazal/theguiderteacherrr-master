@@ -681,14 +681,11 @@
 
 import 'dart:io';
 import 'dart:math';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
-import 'package:theguiderteacherrr/Screens/LoadingPage.dart';
-import 'package:theguiderteacherrr/Screens/Login_.dart';
 import 'package:theguiderteacherrr/global.dart';
 import 'package:intl/intl.dart';
 
@@ -1017,10 +1014,7 @@ class _MeetingState extends State<Meeting> {
                               value: isVideoMuted,
                               onChanged: _onVideoMutedChanged,
                             ),
-                            // Divider(
-                            //   height: 48.0,
-                            //   thickness: 2.0,
-                            // ),
+
                           ],
                         ),
                       ),

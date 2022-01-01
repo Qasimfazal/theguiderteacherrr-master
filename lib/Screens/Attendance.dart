@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:theguiderteacherrr/Model/StudentInClassModel.dart';
-import 'package:theguiderteacherrr/Model/attendanceList.dart';
 import 'package:theguiderteacherrr/global.dart';
 
 class Attendance extends StatefulWidget {
