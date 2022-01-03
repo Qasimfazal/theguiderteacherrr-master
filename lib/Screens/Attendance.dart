@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:theguiderteacherrr/Screens/HomeScreen.dart';
 import 'package:theguiderteacherrr/global.dart';
 import 'package:theguiderteacherrr/widget/Appbar.dart';
 
@@ -42,12 +43,82 @@ class _AttendanceState extends State<Attendance> {
                       ]),
                   child: CircularProgressIndicator()))
           : SafeArea(
+
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: [
-                    GradientAppBar("Courses"),
+                    Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/background.png'),
+                              fit: BoxFit.fill)),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                              left: 30,
+                              width: 80,
+                              height: 200,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage('assets/light-1.png'))),
+                              )),
+                          Positioned(
+                            left: 140,
+                            width: 80,
+                            height: 150,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage('assets/light-2.png'))),
+                            ),
+                          ),
+                          Positioned(
+                            right: 40,
+                            top: 40,
+                            width: 80,
+                            height: 150,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage('assets/clock.png'))),
+                            ),
+                          ),
+                          Positioned(
+                              top: 30,
+                              left: 30,
+                              child: Container(
+                                margin: EdgeInsets.only(top: 20),
+                                child: Center(
+                                  child: Row(
+                                    children: [
+                                      InkWell(
+                                          onTap: () {
+                                            Navigator.pushReplacement(
+                                                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                                          },
+                                          child: Icon(
+                                            Icons.arrow_back_ios_rounded,
+                                            color: Colors.white,
+                                          )),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: Text('Courses Attendance',style: TextStyle(fontSize: 28,fontWeight: FontWeight.w300),),
+                    ),
+
                     Expanded(
                       child: Container(
                         height: MediaQuery.of(context).size.height / 1.1,

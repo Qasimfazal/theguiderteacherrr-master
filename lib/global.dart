@@ -25,11 +25,11 @@ List<StudentInClassModel> studentInClassModelList = [];
 String Student_Name;
 
 class Data {
-  static void Retrieve_MyCourtses() {
+  static Future<void> Retrieve_MyCourtses() async {
     myCoursesList.clear();
     Student_CourceList.clear();
     FirebaseAuth auth = FirebaseAuth.instance;
-    DatabaseReference DB_Refrance = FirebaseDatabase.instance
+    DatabaseReference DB_Refrance = await FirebaseDatabase.instance
         .reference()
         .child("courseSchedule")
         .child(auth.currentUser.uid);
@@ -39,44 +39,46 @@ class Data {
       childkey1.forEach((element) {
         Student_CourceList.add(element);
       });
+    }).then((value) async {
+      await fetchFurtherDetails();
     });
-
-    Future.delayed(Duration(seconds: 4), () {
-      for (int res = 0; res < Student_CourceList.length; res++) {
-        DatabaseReference DB_Reference1 = FirebaseDatabase.instance
-            .reference()
-            .child("courseSchedule")
-            .child(auth.currentUser.uid)
-            .child(Student_CourceList.elementAt(res).toString());
-        DB_Reference1.once().then((DataSnapshot snapshot) {
-          String RoomID = snapshot.value['RoomID'];
-          String Courcename = snapshot.value['Courcename'];
-          String Teacher_Uid = snapshot.value['Teacher_Uid'];
-          String SlotNo = snapshot.value['SlotNo'];
-          String SlotTime = snapshot.value['SlotTime'];
-          String Absents = snapshot.value['Absents'];
-          String Cid = snapshot.key;
-          String Day = snapshot.value['Day'];
-          String StudentStrength = snapshot.value['StudentStrength'];
-          String present = snapshot.value['Present'];
-          String Sname = snapshot.value['Name'];
-          MyCoursesModel mcm = new MyCoursesModel(
-            RoomID,
-            Courcename,
-            Cid,
-            Teacher_Uid,
-            SlotNo,
-            SlotTime,
-            Absents,
-            Day,
-            StudentStrength,
-            present,
-            Sname,
-          );
-          myCoursesList.add(mcm);
-        });
-      }
-    });
+  }
+  static Future<void> fetchFurtherDetails() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    for (int res = 0; res < Student_CourceList.length; res++) {
+      DatabaseReference DB_Reference1 = await FirebaseDatabase.instance
+          .reference()
+          .child("courseSchedule")
+          .child(auth.currentUser.uid)
+          .child(Student_CourceList.elementAt(res).toString());
+      DB_Reference1.once().then((DataSnapshot snapshot) {
+        String RoomID = snapshot.value['RoomID'];
+        String Courcename = snapshot.value['Courcename'];
+        String Teacher_Uid = snapshot.value['Teacher_Uid'];
+        String SlotNo = snapshot.value['SlotNo'];
+        String SlotTime = snapshot.value['SlotTime'];
+        String Absents = snapshot.value['Absents'];
+        String Cid = snapshot.key;
+        String Day = snapshot.value['Day'];
+        String StudentStrength = snapshot.value['StudentStrength'];
+        String present = snapshot.value['Present'];
+        String Sname = snapshot.value['Name'];
+        MyCoursesModel mcm = new MyCoursesModel(
+          RoomID,
+          Courcename,
+          Cid,
+          Teacher_Uid,
+          SlotNo,
+          SlotTime,
+          Absents,
+          Day,
+          StudentStrength,
+          present,
+          Sname,
+        );
+        myCoursesList.add(mcm);
+      });
+    }
   }
 
   static void retrieveStudent(String cid, BuildContext context) async {
@@ -270,4 +272,6 @@ class Data {
 
     }
   }
+
+
 }

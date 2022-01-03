@@ -105,6 +105,10 @@ class _SignupState extends State<Signup> {
                   padding: EdgeInsets.all(30.0),
                   child: Column(
                     children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Text('Signup',style: TextStyle(fontSize: 28,fontWeight: FontWeight.w300),),
+                      ),
                       FadeAnimation(
                           1.8,
                           Container(

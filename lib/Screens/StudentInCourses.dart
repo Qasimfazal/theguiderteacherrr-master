@@ -1,7 +1,7 @@
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:theguiderteacherrr/Screens/HomeScreen.dart';
 import 'package:theguiderteacherrr/widget/Appbar.dart';
 
 import '../global.dart';
@@ -15,31 +15,25 @@ class _StudentInCourseState extends State<StudentInCourse> {
   bool _isButtonDisabled;
   static bool _isAttendanceNotMarked = true;
   int _counter = 0;
-  bool _isCheck =false;
+  bool _isCheck = false;
 
-  CheckUpdate(){
+  CheckUpdate() {
     _isCheck = false;
-    setState(() {
-
-    });
+    setState(() {});
   }
-  @override
 
+  @override
   void initState() {
     _isButtonDisabled = false;
     _isCheck = true;
     Data.Retrieve_MyCourtses();
     //  TODO: implement initState
-    setState(() {
-
-
-    });
+    setState(() {});
   }
 
   void _incrementCounter() {
     setState(() {
       _isButtonDisabled = true;
-
     });
   }
 
@@ -51,9 +45,86 @@ class _StudentInCourseState extends State<StudentInCourse> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
-
             children: [
-              GradientAppBar("Mark Attendance",),
+              Container(
+                height: 200,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/background.png'),
+                        fit: BoxFit.fill)),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+                        left: 30,
+                        width: 80,
+                        height: 200,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/light-1.png'))),
+                        )),
+                    Positioned(
+                      left: 140,
+                      width: 80,
+                      height: 150,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/light-2.png'))),
+                      ),
+                    ),
+                    Positioned(
+                      right: 40,
+                      top: 40,
+                      width: 80,
+                      height: 150,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/clock.png'))),
+                      ),
+                    ),
+                    Positioned(
+                        top: 30,
+                        left: 30,
+                        child: Container(
+                          margin: EdgeInsets.only(top: 20),
+                          child: Center(
+                            child: Row(
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Icon(
+                                      Icons.arrow_back_ios_sharp,
+                                      color: Colors.white,
+                                    )),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                // Text(
+                                //   "Teacher Portal",
+                                //   style: TextStyle(
+                                //       color: Colors.white,
+                                //       fontSize: 22,
+                                //       fontWeight: FontWeight.bold),
+                                // ),
+                              ],
+                            ),
+                          ),
+                        )),
+                  ],
+                ),
+              ),
+              //   GradientAppBar("Mark Attendance",),
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Text(
+                  'Attendance',
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w300),
+                ),
+              ),
               Container(
                 child: Expanded(child: ListDesign()),
               ),
@@ -62,6 +133,8 @@ class _StudentInCourseState extends State<StudentInCourse> {
                 child: InkWell(
                   onTap: () {
                     Data.MoveTowardsAttendance();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (BuildContext context) => HomeScreen()));
                   },
                   child: Container(
                     height: 50,
@@ -101,15 +174,15 @@ class _StudentInCourseState extends State<StudentInCourse> {
             child: Column(
               children: [
                 InkWell(
-                  onLongPress: () async {
-                    String sid = studentInClassModelList[index].studentid;
-                    String cid = studentInClassModelList[index].cid;
-                    String absents = studentInClassModelList[index].absent;
-                    String roomid = studentInClassModelList[index].roomid;
-                    if(absents == 3) {
-                      await RemoveStudent(sid, cid, absents, roomid);
-                    }
-                  },
+                  // onLongPress: () async {
+                  //   String sid = studentInClassModelList[index].studentid;
+                  //   String cid = studentInClassModelList[index].cid;
+                  //   String absents = studentInClassModelList[index].absent;
+                  //   String roomid = studentInClassModelList[index].roomid;
+                  //   if(absents == 3) {
+                  //     await RemoveStudent(sid, cid, absents, roomid);
+                  //   }
+                  // },
                   child: Container(
                     height: 120,
                     width: MediaQuery.of(context).size.width,
@@ -125,6 +198,7 @@ class _StudentInCourseState extends State<StudentInCourse> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+
                           Row(
                             children: [
                               Text(
@@ -181,45 +255,76 @@ class _StudentInCourseState extends State<StudentInCourse> {
                             ],
                           ),
                           Spacer(),
-
-                          studentInClassModelList[index].check     ==true?Row(
-                            children: [
-                              Spacer(),
-                              Container(
-                                height: 30,
-                                child: RaisedButton(
-                                  child:  Text("Present"),
-                              //    backgroundColor: Colors.green,
-                                  onPressed: () {
-                                    // CheckUpdate();
-                                    studentInClassModelList[index].check=false;
-                                    setState(() {
-                                      present(index);
-                                    });
-                                  },
-
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Container(
-                                height: 30,
-                                child: RaisedButton(
-                                 // backgroundColor: Colors.red,
-                                  child:  Text("Absent"),
-                                  onPressed: () {
-                                    // CheckUpdate();
-                                    studentInClassModelList[index].check=false;
-                                    setState(() {
-                                      absent(index);
-                                    });
-                                  },
-                                  //label: Text("Absent"),
-                                ),
-                              ),
-                            ],
-                          ):Container(),
+                          studentInClassModelList[index].check == true
+                              ? Row(
+                                  children: [
+                                    InkWell(
+                                        onTap: () async {
+                                          String sid =
+                                              studentInClassModelList[index]
+                                                  .studentid;
+                                          String cid =
+                                              studentInClassModelList[index].cid;
+                                          String absents =
+                                              studentInClassModelList[index].absent;
+                                          String roomid =
+                                              studentInClassModelList[index].roomid;
+                                          if (absents == '3') {
+                                            await  RemoveStudent(
+                                                sid, cid, absents, roomid);
+                                          }else{
+                                            Fluttertoast.showToast(
+                                                msg: 'Absent Not Reached Limits(3)',
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.CENTER,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.red,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
+                                          }
+                                        },
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Colors.white,
+                                        )),
+                                    Spacer(),
+                                    Container(
+                                      height: 30,
+                                      child: RaisedButton(
+                                        child: Text("Present"),
+                                        //    backgroundColor: Colors.green,
+                                        onPressed: () {
+                                          // CheckUpdate();
+                                          studentInClassModelList[index].check =
+                                              false;
+                                          setState(() {
+                                            present(index);
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Container(
+                                      height: 30,
+                                      child: RaisedButton(
+                                        // backgroundColor: Colors.red,
+                                        child: Text("Absent"),
+                                        onPressed: () {
+                                          // CheckUpdate();
+                                          studentInClassModelList[index].check =
+                                              false;
+                                          setState(() {
+                                            absent(index);
+                                          });
+                                        },
+                                        //label: Text("Absent"),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Container(),
                         ],
                       ),
                     ),
@@ -249,10 +354,18 @@ class _StudentInCourseState extends State<StudentInCourse> {
     studentInClassModelList[index].present = _pre.toString();
   }
 
-  RemoveStudent(String sid, String cid, String absents , String roomid) {
-    DatabaseReference reffer = FirebaseDatabase.instance.reference().child("StudentCourse").child(sid).child(cid);
+  RemoveStudent(String sid, String cid, String absents, String roomid) {
+    DatabaseReference reffer = FirebaseDatabase.instance
+        .reference()
+        .child("StudentCourse")
+        .child(sid)
+        .child(cid);
     reffer.remove().then((value) async {
-      DatabaseReference reference = await FirebaseDatabase.instance.reference().child("RoomAttendance").child(roomid).child(cid);
+      DatabaseReference reference = await FirebaseDatabase.instance
+          .reference()
+          .child("RoomAttendance")
+          .child(roomid)
+          .child(cid);
       reference.remove().then((value) async {
         Fluttertoast.showToast(
             msg: 'Student remove',

@@ -49,7 +49,7 @@ String msg;
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/logo8.jpeg'),
+                  Image.asset('assets/Alqurankareem.jpeg'),
                 ],
               ),
             ),
