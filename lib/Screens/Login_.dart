@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -28,12 +29,30 @@ class _LoginState extends State<Login> {
       final FirebaseAuth auth = FirebaseAuth.instance;
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
-          .then((value) {
+          .then((value) async {
         String val = value.user.uid;
         if (val.isNotEmpty) {
+          DatabaseReference reference = await FirebaseDatabase.instance.reference().child("UserTeacher").child(value.user.uid);
+          reference.once().then((DataSnapshot dataSnapshot) {
+            if(dataSnapshot.exists){
+              if(email == dataSnapshot.value["email"].toString() && password == dataSnapshot.value["password"].toString()){
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              }
+              else{
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text('Email or Password is Wrong')));
+              }
+            }
+            else{
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('User Does not Existed')));
+
+            }
+          });
+
           print('chal raha h');
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => HomeScreen()));
+
         } else {
           print('nahi araha');
         }
