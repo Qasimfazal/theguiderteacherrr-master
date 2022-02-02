@@ -681,6 +681,8 @@
 
 import 'dart:io';
 import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -688,6 +690,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:theguiderteacherrr/global.dart';
 import 'package:intl/intl.dart';
+
+import 'HomeScreen.dart';
 
 class Meeting extends StatefulWidget {
   @override
@@ -698,8 +702,6 @@ class _MeetingState extends State<Meeting> {
   final serverText = TextEditingController();
   final roomText = TextEditingController(text: "room");
   final subjectText = TextEditingController();
-  final nameText = TextEditingController(text: "Plugin Test User");
-  final emailText = TextEditingController(text: "fake@email.com");
   final iosAppBarRGBAColor =
       TextEditingController(text: "#0080FF80"); //transparent blue
   bool isAudioOnly = true;
@@ -720,6 +722,7 @@ class _MeetingState extends State<Meeting> {
     Future.delayed(Duration(seconds: 5), () {
       setState(() {
         _loading = false;
+        Data.RetrieveNameData();
       });
     });
     JitsiMeet.addListener(JitsiMeetingListener(
@@ -740,8 +743,7 @@ class _MeetingState extends State<Meeting> {
     double width = MediaQuery.of(context).size.width;
     return MaterialApp(
       home: Scaffold(
-        body: _loading
-            ? Center(
+        body: _loading ? Center(
                 child: Container(
                     height: 50,
                     width: 50,
@@ -754,8 +756,7 @@ class _MeetingState extends State<Meeting> {
                               blurRadius: 20.0,
                               offset: Offset(0, 10))
                         ]),
-                    child: CircularProgressIndicator()))
-            : Container(
+                    child: CircularProgressIndicator())) : Container(
                 // padding: const EdgeInsets.symmetric(
                 //   horizontal: 16.0,
                 // ),
@@ -1021,6 +1022,19 @@ class _MeetingState extends State<Meeting> {
                       height: 30,
                     ),
                     InkWell(
+                    onTap: () async {
+                      String  courseid = myCoursesList[index].cid;
+                      await removeCourse(courseid);
+
+                    },
+                      child: Icon(
+
+                        Icons.delete,
+                        color: Colors.red,
+
+                      ),
+                    ),
+                    InkWell(
                       onTap: () {
                         DateTime now = DateTime.now();
                         String day = DateFormat('EEEE').format(now);
@@ -1108,8 +1122,8 @@ class _MeetingState extends State<Meeting> {
     var options = JitsiMeetingOptions(room: Room_ID)
       ..serverURL = serverUrl
       ..subject = CourceName
-      ..userDisplayName = nameText.text
-      ..userEmail = emailText.text
+      ..userDisplayName = Student_Name.toString()
+      ..userEmail = ''
       ..iosAppBarRGBAColor = iosAppBarRGBAColor.text
       ..audioOnly = isAudioOnly
       ..audioMuted = isAudioMuted
@@ -1121,7 +1135,7 @@ class _MeetingState extends State<Meeting> {
         "height": "100%",
         "enableWelcomePage": false,
         "chromeExtensionBanner": null,
-        "userInfo": {"displayName": CourceName}
+        "userInfo": {"displayName": Student_Name.toString()}
       };
 
     debugPrint("JitsiMeetingOptions: $options");
@@ -1161,5 +1175,24 @@ class _MeetingState extends State<Meeting> {
 
   _onError(error) {
     debugPrint("_onError broadcasted: $error");
+  }
+
+  removeCourse(String courseid) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    DatabaseReference reference = FirebaseDatabase.instance.reference().child("courseSchedule").child(auth.currentUser.uid)
+    .child(courseid);
+    reference.remove().whenComplete(() {
+      Fluttertoast.showToast(
+          msg: 'Course Deleted',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      Navigator.pushReplacement(
+
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    });
   }
 }

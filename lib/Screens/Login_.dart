@@ -27,9 +27,7 @@ class _LoginState extends State<Login> {
       email = _email.text;
       password = _password.text;
       final FirebaseAuth auth = FirebaseAuth.instance;
-      await auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((value) async {
+      await auth.signInWithEmailAndPassword(email: email, password: password).then((value) async {
         String val = value.user.uid;
         if (val.isNotEmpty) {
           DatabaseReference reference = await FirebaseDatabase.instance.reference().child("UserTeacher").child(value.user.uid);
@@ -51,10 +49,10 @@ class _LoginState extends State<Login> {
             }
           });
 
-          print('chal raha h');
+          print('Success Login');
 
         } else {
-          print('nahi araha');
+          print('Not working');
         }
       });
     } catch (e) {
