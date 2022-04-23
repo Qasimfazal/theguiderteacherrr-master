@@ -62,8 +62,7 @@ class _Create_CourceState extends State<Create_Cource> {
               childkey2.forEach((element) {
                 Allteachers_Cource_Detail.add(element);
                 for (int j = 0; j < Allteachers_Cource_Detail.length; j++) {
-                  DatabaseReference DB_Refrance3 = FirebaseDatabase.instance
-                      .reference().child("courseSchedule").child(Allteachers_Uid
+                  DatabaseReference DB_Refrance3 = FirebaseDatabase.instance.reference().child("courseSchedule").child(Allteachers_Uid
                       .elementAt(i).toString()).child(Allteachers_Cource_Detail
                       .elementAt(j));
                   DB_Refrance3.once().then((DataSnapshot snapshot) {
