@@ -73,6 +73,8 @@ class _Create_CourceState extends State<Create_Cource> {
                     String slottime = snapshot.value["SlotTime"];
                     String strength = snapshot.value["StudentStrength"];
                     String tuid = snapshot.value["Teacher_Uid"];
+                    String clevel = snapshot.value["Courselevel"];
+                    String ccategory = snapshot.value["Category"];
 
                     Cource_Shedule_Model cm = new Cource_Shedule_Model(
                         courcename,
@@ -81,7 +83,8 @@ class _Create_CourceState extends State<Create_Cource> {
                         slotno,
                         slottime,
                         strength,
-                        tuid);
+                        tuid ,
+                    clevel ,ccategory);
                     Allteachers_Declared_variables.add(cm);
                   });
                 }
@@ -141,6 +144,7 @@ class _Create_CourceState extends State<Create_Cource> {
     String slot = _course_duration;
     String uid = auth.currentUser.uid;
     String Student_Strength = Select_Student_Strength;
+    String courselevel = Select_Cource_Level;
     String slotno ="";
     if(slot=="8:00"){
       slotno ="1";
@@ -171,6 +175,9 @@ class _Create_CourceState extends State<Create_Cource> {
       'SlotTime':slot,
       'Day':selectdays,
       'StudentStrength': Student_Strength,
+      'Courselevel': courselevel,
+      'Category': Select_Category
+
     }).whenComplete((){
       Fluttertoast.showToast(
           msg: 'Sucessfully Created',
@@ -192,7 +199,9 @@ class _Create_CourceState extends State<Create_Cource> {
   String FinalDBMin;
   String _course_duration = 'Select Course Duration';
   String Select_Student_Strength = 'Select Student Strength';
+  String Select_Cource_Level = 'Select Cource Level';
   String Select_Day = 'Select Day';
+  String Select_Category = 'Select Category';
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -275,6 +284,7 @@ class _Create_CourceState extends State<Create_Cource> {
                   padding: EdgeInsets.all(30.0),
                   child: Column(
                     children: <Widget>[
+
                       FadeAnimation(
                           1.8,
                           Container(
@@ -295,6 +305,78 @@ class _Create_CourceState extends State<Create_Cource> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text('Room ID ' +RandomNumber,style: TextStyle(fontWeight: FontWeight.bold),),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: DropdownButtonFormField<String>(
+                                      icon: Icon(Icons.keyboard_arrow_down),
+                                      iconSize: 17,
+                                      elevation: 16,
+                                      style: TextStyle(color: Colors.grey),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius: const BorderRadius.all(
+                                            const Radius.circular(10.0),
+                                          ),
+                                        ),
+                                        hintStyle:
+                                        TextStyle(color: Colors.grey[800]),
+                                      ),
+                                      value: Select_Category,
+                                      items: <String>[
+                                        'Select Category',
+                                        'Duaein ',
+                                        'Namaz',
+                                        'Tilavat',
+                                        'Hadees',
+                                        'Qalma',
+                                      ].map((String value) {
+                                        return new DropdownMenuItem<String>(
+                                          value: value,
+                                          child: new Text(value),
+                                        );
+                                      }).toList(),
+                                      onChanged: (newVal) {
+                                        setState(() {
+                                          Select_Category = newVal;
+                                        });
+                                      }),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: DropdownButtonFormField<String>(
+                                      icon: Icon(Icons.keyboard_arrow_down),
+                                      iconSize: 17,
+                                      elevation: 16,
+                                      style: TextStyle(color: Colors.grey),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius: const BorderRadius.all(
+                                            const Radius.circular(10.0),
+                                          ),
+                                        ),
+                                        hintStyle:
+                                        TextStyle(color: Colors.grey[800]),
+                                      ),
+                                      value: Select_Cource_Level,
+                                      items: <String>[
+                                        'Select Cource Level',
+                                        '1',
+                                        '2',
+                                        '3',
+                                        '4',
+                                        '5',
+                                      ].map((String value) {
+                                        return new DropdownMenuItem<String>(
+                                          value: value,
+                                          child: new Text(value),
+                                        );
+                                      }).toList(),
+                                      onChanged: (newVal) {
+                                        setState(() {
+                                          Select_Cource_Level = newVal;
+                                        });
+                                      }),
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(8.0),
