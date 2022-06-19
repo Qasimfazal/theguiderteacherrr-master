@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void Data_Generator() async {
     await DataRetrive.Retrieve();
+
     setState(() {});
   }
   void initState() {

@@ -687,7 +687,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
+import 'package:theguiderteacherrr/Data/PushNotification.dart';
+import 'package:theguiderteacherrr/Data/attendance.dart';
+import 'package:theguiderteacherrr/Model/DevidMod.dart';
+import 'package:theguiderteacherrr/Model/StudentInClassModel.dart';
 import 'package:theguiderteacherrr/global.dart';
 import 'package:intl/intl.dart';
 
@@ -699,6 +704,7 @@ class Meeting extends StatefulWidget {
 }
 
 class _MeetingState extends State<Meeting> {
+
   final serverText = TextEditingController();
   final roomText = TextEditingController(text: "room");
   final subjectText = TextEditingController();
@@ -712,14 +718,56 @@ class _MeetingState extends State<Meeting> {
     RandomNumber = Random().nextInt(1000).toString();
     print(Text("NUmber is" + RandomNumber));
   }
-
   bool _loading = true;
+  List<String> Student_CourceList = [];
+  List<String> studentSidList = [];
+  List<DevID> studentcourseList = [];
+String DevId;
+  Future<void> retrieveStudent(String cid) async {
+    studentcourseList.clear();
+    studentSidList.clear();
+
+    DatabaseReference reff =
+    await FirebaseDatabase.instance.reference().child("StudentCourse");
+    reff.once().then((DataSnapshot snapshot) {
+      Map<dynamic, dynamic> values = snapshot.value;
+      Iterable childkey1 = values.keys;
+      childkey1.forEach((element) {
+        studentSidList.add(element);
+      });
+    }).then((value) async {
+      await retrieveStudentInCourses(cid);
+    });
+  }
+  retrieveStudentInCourses(String cid) async {
+    for (int i = 0; i < studentSidList.length; i++) {
+      DatabaseReference reference = await FirebaseDatabase.instance
+          .reference()
+          .child("StudentCourse")
+          .child(studentSidList.elementAt(i))
+          .child(cid);
+      reference.once().then((DataSnapshot snapshot) {
+        studentcourseList.add(DevID(
+          Devid: snapshot.value['sendto'],
+        ));
+
+
+
+
+        // NavigateToScreen(context);
+      });
+    }
+  }
+  String Notifify,Notify2;
+  TextEditingController _Notifify;
   @override
   void initState() {
     super.initState();
+    _Notifify = new TextEditingController();
     Random_Generator();
     Data.Retrieve_MyCourtses();
-    Future.delayed(Duration(seconds: 5), () {
+    //retrieveStudent();
+    Future.delayed(Duration(seconds: 6), () {
       setState(() {
         _loading = false;
         Data.RetrieveNameData();
@@ -737,61 +785,64 @@ class _MeetingState extends State<Meeting> {
     super.dispose();
     JitsiMeet.removeAllListeners();
   }
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return MaterialApp(
-      home: Scaffold(
-        body: _loading ? Center(
-                child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        //   color: Colors.red,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color.fromRGBO(143, 148, 251, .2),
-                              blurRadius: 20.0,
-                              offset: Offset(0, 10))
-                        ]),
-                    child: CircularProgressIndicator())) : Container(
-                // padding: const EdgeInsets.symmetric(
-                //   horizontal: 16.0,
-                // ),
-                child: kIsWeb
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: width * 0.30,
-                            child: meetConfig(),
-                          ),
-                          Container(
-                              width: width * 0.60,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Card(
-                                    color: Colors.white54,
-                                    child: SizedBox(
-                                      width: width * 0.60 * 0.70,
-                                      height: width * 0.60 * 0.70,
-                                      child: JitsiMeetConferencing(
-                                        extraJS: [
-                                          // extraJs setup example
-                                          '<script>function echo(){console.log("echo!!!")};</script>',
-                                          '<script src="https://code.jquery.com/jquery-3.5.1.slim.js"'
-                                              ' integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" '
-                                              'crossorigin="anonymous"></script>'
-                                        ],
-                                      ),
-                                    )),
-                              ))
-                        ],
-                      )
-                    : meetConfig(),
-              ),
+      home: Form(
+        key: _formKey,
+        child: Scaffold(
+          body: _loading ? Center(
+                  child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                          //   color: Colors.red,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Color.fromRGBO(143, 148, 251, .2),
+                                blurRadius: 20.0,
+                                offset: Offset(0, 10))
+                          ]),
+                      child: CircularProgressIndicator())) : Container(
+                  // padding: const EdgeInsets.symmetric(
+                  //   horizontal: 16.0,
+                  // ),
+                  child: kIsWeb
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: width * 0.30,
+                              child: meetConfig(),
+                            ),
+                            Container(
+                                width: width * 0.60,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                      color: Colors.white54,
+                                      child: SizedBox(
+                                        width: width * 0.60 * 0.70,
+                                        height: width * 0.60 * 0.70,
+                                        child: JitsiMeetConferencing(
+                                          extraJS: [
+                                            // extraJs setup example
+                                            '<script>function echo(){console.log("echo!!!")};</script>',
+                                            '<script src="https://code.jquery.com/jquery-3.5.1.slim.js"'
+                                                ' integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" '
+                                                'crossorigin="anonymous"></script>'
+                                          ],
+                                        ),
+                                      )),
+                                ))
+                          ],
+                        )
+                      : meetConfig(),
+                ),
+        ),
       ),
     );
   }
@@ -1019,27 +1070,110 @@ class _MeetingState extends State<Meeting> {
                       ),
                     ),
                     SizedBox(
+                      height:50,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                         // padding: EdgeInsets.all(8.0),
+                          height:50,
+                          width:250,
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Colors.grey[100]))),
+                          child: TextFormField(
+                            controller: _Notifify,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Enter Message For Class",
+                                hintStyle:
+                                TextStyle(color: Colors.grey[400])),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            String  courseid = myCoursesList[index].cid;
+                            await removeCourse(courseid);
+
+                          },
+
+                          child: Icon(
+
+                            Icons.delete,
+                            size: 30,
+                            color: Colors.red,
+
+                          ),
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
+                        InkWell(
+                          onTap: () async {
+
+                            await retrieveStudent(myCoursesList[index].cid);
+                            Future.delayed(Duration(seconds: 3), () async{
+                              String b =_Notifify.text;
+                              if(b != ""){
+                                Notifify=_Notifify.text;
+                                _Notifify.clear();
+
+                              }else{
+                                Notifify = 'Your Cource '+myCoursesList[index].Courcename+' is Getting Started';
+                                _Notifify.clear();
+                              }
+                              //setState(() async{
+                                        for(int i = 0 ; i < studentSidList.length; i++){
+                                          print(studentcourseList.elementAt(i).Devid);
+                                          await Notificationn.SendNotification(studentcourseList.elementAt(i).Devid,Notifify);
+
+                                        }
+
+                            //  });
+                            });
+                          //  await Notificationn.SendNotification(studentcourseList[index].Devid);
+
+                          },
+                          child: Icon(
+
+                            Icons.notifications_active,
+                            size: 30,
+                            color: Colors.red,
+
+                          ),
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(
                       height: 30,
                     ),
                     InkWell(
-                    onTap: () async {
-                      String  courseid = myCoursesList[index].cid;
-                      await removeCourse(courseid);
-
-                    },
-                      child: Icon(
-
-                        Icons.delete,
-                        color: Colors.red,
-
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
+                      onTap: () async{
+                        //await retrieveStudent(myCoursesList[index].cid);
                         DateTime now = DateTime.now();
                         String day = DateFormat('EEEE').format(now);
+                        //String day = 'Monday';
                      //  String time = DateFormat('kk:mm').format(now);
-                        if (myCoursesList[index].Day == day.toString()) {
+                       // print(myCoursesList[index].DeviceID);
+                      // await Notificationn.SendNotification(myCoursesList[index].DeviceID);
+                       // await Data.retrieveStudent(myCoursesList[index].cid, ctx);
+                       //  for(){
+                       //
+                       //  }
+
+                       // for(String i = 0 ; i > studentcourseList[index].Devid; i++){
+
+                           // await Notificationn.SendNotification(studentcourseList[index].Devid);
+
+
+
+                       // }
+                            //await Notificationn.SendNotification();
+
+                       // myCoursesList[index].Day
+                        if ( day.toString()== day.toString()) {
                           _joinMeeting(myCoursesList[index].RoomID,
                               myCoursesList[index].Courcename);
                         } else {

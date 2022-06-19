@@ -23,7 +23,8 @@ List<String> studentcourseList = [];
 List<StudentInClassModel> studentInClassModelList1 = [];
 List<StudentInClassModel> studentInClassModelList = [];
 String Student_Name;
-
+String DeviceId;
+//List<String> StudentDevId =[];
 class Data {
   static Future<void> Retrieve_MyCourtses() async {
     myCoursesList.clear();
@@ -53,6 +54,7 @@ class Data {
           .child(auth.currentUser.uid)
           .child(Student_CourceList.elementAt(res).toString());
       DB_Reference1.once().then((DataSnapshot snapshot) {
+
         String RoomID = snapshot.value['RoomID'];
         String Courcename = snapshot.value['Courcename'];
         String Teacher_Uid = snapshot.value['Teacher_Uid'];
@@ -64,8 +66,9 @@ class Data {
         String StudentStrength = snapshot.value['StudentStrength'];
         String present = snapshot.value['Present'];
         String Sname = snapshot.value['Name'];
+
         MyCoursesModel mcm = new MyCoursesModel(
-          RoomID,
+          RoomID ,
           Courcename,
           Cid,
           Teacher_Uid,
@@ -76,12 +79,13 @@ class Data {
           StudentStrength,
           present,
           Sname,
+
         );
         myCoursesList.add(mcm);
       });
     }
   }
-
+///
   static void retrieveStudent(String cid, BuildContext context) async {
     studentcourseList.clear();
     studentSidList.clear();
@@ -140,9 +144,10 @@ class Data {
             String _present = snapshot.value["Present"];
             String _sname = snapshot.value["StudentName"];
             String _roomId = snapshot.value["RoomID"];
-
+            DeviceId  =snapshot.value['sendto'];
+            print(DeviceId);
             StudentInClassModel sicm = new StudentInClassModel(_sid, _sname,
-                _absent, true, _day, _slottime, _cid, _tid, _present, _roomId);
+                _absent, true, _day, _slottime, _cid, _tid, _present, _roomId,DeviceId);
 
             studentInClassModelList.add(sicm);
           }
@@ -162,6 +167,7 @@ class Data {
     String day = DateFormat('EEEE').format(now);
     String time = DateFormat('kk:mm').format(now);
     for (int i = 0; i < studentInClassModelList.length; i++) {
+
       if (studentInClassModelList[i].day == day) {
         S_sid = studentInClassModelList.elementAt(i).studentid;
         String _cid = studentInClassModelList.elementAt(i).cid;
@@ -258,9 +264,10 @@ class Data {
         String _present = snapshot.value["Present"];
         String _sname = snapshot.value["StudentName"];
         String _roomId = snapshot.value["RoomID"];
-
+        DeviceId  =snapshot.value['sendto'];
+        print(DeviceId);
         StudentInClassModel sicm = new StudentInClassModel(_sid, _sname,
-            _absent, true, _day, _slottime, _cid, _tid, _present, _roomId);
+            _absent, true, _day, _slottime, _cid, _tid, _present, _roomId,DeviceId);
 
         studentInClassModelList.add(sicm);
         NavigateToScreen(context);

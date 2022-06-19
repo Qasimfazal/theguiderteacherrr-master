@@ -1,8 +1,9 @@
 class MyCoursesModel2{
-  String  RoomID, Courcename , cid ,Teacher_Uid , SlotNo , SlotTime , Absents , Day ,StudentStrength,Sname,Present;
+  String  RoomID, Courcename , cid ,Teacher_Uid , SlotNo , SlotTime , Absents , Day ,StudentStrength,Sname,Present,DeviceId2;
 
   MyCoursesModel2(
-      {this.RoomID,
+      {
+        this.RoomID,
         this.Courcename,
         this.cid,
         this.Teacher_Uid,
@@ -13,6 +14,7 @@ class MyCoursesModel2{
         this.StudentStrength,
         this.Sname,
         this.Present,
+        this.DeviceId2,
 
       }
 

@@ -46,7 +46,8 @@ dependencies:
   custom_check_box: ^0.0.4
   observable: ^0.24.0
   get: ^4.6.1
-
+  firebase_messaging:
+  firebase_messaging_platform_interface: 3.1.6
 
 dev_dependencies:
   flutter_test:

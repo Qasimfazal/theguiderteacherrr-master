@@ -11,6 +11,7 @@ class MyCoursesModel {
       present,
       Sname;
 
+
   MyCoursesModel(
       this.RoomID,
       this.Courcename,
@@ -22,5 +23,7 @@ class MyCoursesModel {
       this.Day,
       this.StudentStrength,
       this.present,
-      this.Sname);
+      this.Sname,
+
+      );
 }

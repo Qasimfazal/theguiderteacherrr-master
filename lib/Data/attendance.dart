@@ -81,6 +81,7 @@ import 'package:theguiderteacherrr/Model/DataModel.dart';
 
 List<MyCoursesModel2> myCoursesList2 = [];
 List<String> Student_CourceList2 = [];
+List<String> IdList = [];
 class DataRetrive {
   static void Retrieve() async {
     var value;
@@ -98,6 +99,7 @@ class DataRetrive {
       childkey1.forEach((element) {
         Student_CourceList2.add(element);
 
+        print(IdList);
       });
 
 
@@ -130,7 +132,6 @@ class DataRetrive {
           StudentStrength: snapshot.value['StudentStrength'],
           Present: snapshot.value['Present'],
           Sname:snapshot.value['Name'],
-
 
         ));
       });
